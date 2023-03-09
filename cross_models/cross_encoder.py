@@ -42,8 +42,8 @@ class SegMerging(nn.Module):
 class scale_block(nn.Module):
     '''
    按次序：
-    1.mergelayer 相邻segment往上层合并;winsize 1不合并；>1:2?4。
-    2.TwoStageAttentionLayer 两个维度上按序做Attention;depth = 1。
+    1.mergelayer : 相邻segment往上层合并 ; winsize : 1不合并 ；>1 : 2 ? 4。
+    2.TwoStageAttentionLayer 两个维度上按序做Attention ; depth = 1。
 
 
     We can use one segment merging layer followed by multiple TSA layers in each scale

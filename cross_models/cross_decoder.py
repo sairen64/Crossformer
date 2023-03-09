@@ -11,7 +11,7 @@ class DecoderLayer(nn.Module):
     def __init__(self, seg_len, d_model, n_heads, d_ff=None, dropout=0.1, out_seg_num = 10, factor = 10):
         super(DecoderLayer, self).__init__()
         self.self_attention = TwoStageAttentionLayer(out_seg_num, factor, d_model, n_heads, \
-                                d_ff, dropout)    
+                                d_ff, dropout)
         self.cross_attention = AttentionLayer(d_model, n_heads, dropout = dropout)
         self.norm1 = nn.LayerNorm(d_model)
         self.norm2 = nn.LayerNorm(d_model)
@@ -25,6 +25,9 @@ class DecoderLayer(nn.Module):
         '''
         x: the output of last decoder layer
         cross: the output of the corresponding encoder layer
+
+        TwoStageAttentionLayer ->
+
         '''
 
         batch = x.shape[0]
@@ -49,6 +52,9 @@ class DecoderLayer(nn.Module):
 class Decoder(nn.Module):
     '''
     The decoder of Crossformer, making the final prediction by adding up predictions at each scale
+
+    d_layers = e_layers + 1 = 4
+
     '''
     def __init__(self, seg_len, d_layers, d_model, n_heads, d_ff, dropout,\
                 router=False, out_seg_num = 10, factor=10):
